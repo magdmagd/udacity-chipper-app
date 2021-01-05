@@ -18,8 +18,7 @@ class App extends Component {
     return (
       <div>
           <LoadingBar />
-                 {this.props.loading === true  ? null : <Dashboard />}
-               
+          {this.props.loading === true  ? null : <Dashboard />}               
       </div>
     )
   }//end render
@@ -28,8 +27,9 @@ class App extends Component {
 
 function mapStateToProps ({ authedUser })
  {
-  return {
-    loading: authedUser === null
+  return 
+  {    
+     loading: authedUser === null
   }
 }//end mapStateToProps
 

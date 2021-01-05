@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatTweet, formatDate } from '../utils/helpers'
-import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline' 
-import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
-import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
+import TiArrowBackOutline from 'react-icons' 
+import TiHeartOutline from 'react-icons'
+import TiHeartFullOutline from 'react-icons'
+import { handleToggleTweet } from '../actions/tweets'
 
-
-import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
-import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
 
 class Tweet extends Component
  {
   handleLike = (e) => 
   {
     e.preventDefault()
-    // todo: Handle Like Tweet
+    const { dispatch, tweet, authedUser } = this.props
+
+    dispatch(handleToggleTweet({ 
+      id: tweet.id,
+      hasLiked: tweet.hasLiked,
+      authedUser
+    }))
   }//end handleLike
 
   toParent = (e, id) =>
@@ -32,9 +36,7 @@ class Tweet extends Component
       return <p>This Tweet doesn't existd</p>
     }
 
-    const {
-      name, avatar, timestamp, text, hasLiked, likes, replies, parent
-    } = tweet
+    const {      name, avatar, timestamp, text, hasLiked, likes, replies, parent    } = tweet
 
     return (
       <div className='tweet'>
@@ -70,15 +72,14 @@ class Tweet extends Component
   }
 }//end Tweet
 
-function mapStateToProps ({authedUser, users, tweets}, { id }) {
+function mapStateToProps ({authedUser, users, tweets}, { id }) 
+{
   const tweet = tweets[id]
   const parentTweet = tweet ? tweets[tweet.replyingTo] : null
 
   return {
     authedUser,
-    tweet: tweet
-      ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
-      : null
+    tweet: tweet  ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)  : null
   }
 }//end mapStateToProps
 
