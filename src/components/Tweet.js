@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+//import TiArrowBackOutline from 'react-icons' 
+//import TiHeartOutline from 'react-icons'
+//import TiHeartFullOutline from 'react-icons'
 import { connect } from 'react-redux'
+
+import { TiArrowBackOutline, TiHeartOutline, TiHeartFullOutline} from 'react-icons/ti/index'
+
+
 import { formatTweet, formatDate } from '../utils/helpers'
-import TiArrowBackOutline from 'react-icons' 
-import TiHeartOutline from 'react-icons'
-import TiHeartFullOutline from 'react-icons'
 import { handleToggleTweet } from '../actions/tweets'
 
 
@@ -36,7 +40,7 @@ class Tweet extends Component
       return <p>This Tweet doesn't existd</p>
     }
 
-    const {      name, avatar, timestamp, text, hasLiked, likes, replies, parent    } = tweet
+    const{name, avatar, timestamp, text, hasLiked, likes, replies, parent} = tweet
 
     return (
       <div className='tweet'>
@@ -79,7 +83,7 @@ function mapStateToProps ({authedUser, users, tweets}, { id })
 
   return {
     authedUser,
-    tweet: tweet  ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)  : null
+    tweet: tweet  ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet) : null
   }
 }//end mapStateToProps
 
