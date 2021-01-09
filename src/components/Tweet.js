@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 //import TiHeartOutline from 'react-icons'
 //import TiHeartFullOutline from 'react-icons'
 import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
 
 import { TiArrowBackOutline, TiHeartOutline, TiHeartFullOutline} from 'react-icons/ti/index'
 
@@ -28,7 +29,7 @@ class Tweet extends Component
   toParent = (e, id) =>
    {
     e.preventDefault()
-    // todo: Redirect to parent Tweet.
+    this.props.history.push(`/tweet/${id}`)
    }//end toParent
 
   render() 
@@ -40,10 +41,10 @@ class Tweet extends Component
       return <p>This Tweet doesn't existd</p>
     }
 
-    const{name, avatar, timestamp, text, hasLiked, likes, replies, parent} = tweet
+    const{name, avatar, timestamp, text, hasLiked, likes,id, replies, parent} = tweet
 
     return (
-      <div className='tweet'>
+      <Link to={`/tweet/${id}`} className='tweet'>
         <img
           src={avatar}
           alt={`Avatar of ${name}`}
@@ -71,7 +72,7 @@ class Tweet extends Component
             <span>{likes !== 0 && likes}</span>
           </div>
         </div>
-      </div>
+        </Link>
     )
   }
 }//end Tweet
@@ -87,4 +88,4 @@ function mapStateToProps ({authedUser, users, tweets}, { id })
   }
 }//end mapStateToProps
 
-export default connect(mapStateToProps)(Tweet) 
+export default withRouter(connect(mapStateToProps)(Tweet))
